@@ -2,7 +2,7 @@
 // 
 // 		ＤＸライブラリ		Windows用データタイプ定義ヘッダファイル
 // 
-// 				Ver 3.16 
+// 				Ver 3.16f
 // 
 // -------------------------------------------------------------------------------
 
@@ -11,7 +11,15 @@
 
 // インクルード ------------------------------------------------------------------
 #include "DxCompileConfig.h"
+
+#if !defined(CINTERFACE) && defined(__c2__) &&  __clang_major__ == 3 && __clang_minor__ == 8
+//To avoid compile error
+//C:\Program Files (x86)\Windows Kits\8.1\Include\um\combaseapi.h(229,21): error : unknown type name 'IUnknown'
+//          static_cast<IUnknown*>(*pp);    // make sure everyone derives from IUnknown
+#define CINTERFACE
+#endif
 #include <windows.h>
+
 #include <tchar.h>
 #include <commctrl.h>
 
@@ -804,6 +812,122 @@
 					#pragma comment( lib, "vorbisfile_static.lib" )
 
 					#pragma comment( lib, "libtheora_static.lib" )
+				#endif // _MSC_VER
+			#endif
+			#ifndef DX_NON_OPUS								// Opusライブラリ
+				#ifdef _MSC_VER
+					#if _MSC_VER <  1700
+						#ifdef _WIN64
+							#ifdef _DEBUG
+								#pragma comment( lib, "opus_x64_d.lib" )
+								#pragma comment( lib, "opusfile_x64_d.lib" )
+								#pragma comment( lib, "silk_common_x64_d.lib" )
+								#pragma comment( lib, "celt_x64_d.lib" )
+							#else
+								#pragma comment( lib, "opus_x64.lib" )
+								#pragma comment( lib, "opusfile_x64.lib" )
+								#pragma comment( lib, "silk_common_x64.lib" )
+								#pragma comment( lib, "celt_x64.lib" )
+							#endif
+						#else
+							#ifdef _DEBUG
+								#pragma comment( lib, "opus_d.lib" )
+								#pragma comment( lib, "opusfile_d.lib" )
+								#pragma comment( lib, "silk_common_d.lib" )
+								#pragma comment( lib, "celt_d.lib" )
+							#else
+								#pragma comment( lib, "opus.lib" )
+								#pragma comment( lib, "opusfile.lib" )
+								#pragma comment( lib, "silk_common.lib" )
+								#pragma comment( lib, "celt.lib" )
+							#endif
+						#endif
+					#else // _MSC_VER <  1700
+						#if _MSC_VER >= 1900
+							#ifdef _WIN64
+								#ifdef _DEBUG
+									#pragma comment( lib, "opus_vs2015_x64_d.lib" )
+									#pragma comment( lib, "opusfile_vs2015_x64_d.lib" )
+									#pragma comment( lib, "silk_common_vs2015_x64_d.lib" )
+									#pragma comment( lib, "celt_vs2015_x64_d.lib" )
+								#else
+									#pragma comment( lib, "opus_vs2015_x64.lib" )
+									#pragma comment( lib, "opusfile_vs2015_x64.lib" )
+									#pragma comment( lib, "silk_common_vs2015_x64.lib" )
+									#pragma comment( lib, "celt_vs2015_x64.lib" )
+								#endif
+							#else
+								#ifdef _DEBUG
+									#pragma comment( lib, "opus_vs2015_x86_d.lib" )
+									#pragma comment( lib, "opusfile_vs2015_x86_d.lib" )
+									#pragma comment( lib, "silk_common_vs2015_x86_d.lib" )
+									#pragma comment( lib, "celt_vs2015_x86_d.lib" )
+								#else
+									#pragma comment( lib, "opus_vs2015_x86.lib" )
+									#pragma comment( lib, "opusfile_vs2015_x86.lib" )
+									#pragma comment( lib, "silk_common_vs2015_x86.lib" )
+									#pragma comment( lib, "celt_vs2015_x86.lib" )
+								#endif
+							#endif
+						#elif _MSC_VER >= 1800
+							#ifdef _WIN64
+								#ifdef _DEBUG
+									#pragma comment( lib, "opus_vs2013_x64_d.lib" )
+									#pragma comment( lib, "opusfile_vs2013_x64_d.lib" )
+									#pragma comment( lib, "silk_common_vs2013_x64_d.lib" )
+									#pragma comment( lib, "celt_vs2013_x64_d.lib" )
+								#else
+									#pragma comment( lib, "opus_vs2013_x64.lib" )
+									#pragma comment( lib, "opusfile_vs2013_x64.lib" )
+									#pragma comment( lib, "silk_common_vs2013_x64.lib" )
+									#pragma comment( lib, "celt_vs2013_x64.lib" )
+								#endif
+							#else
+								#ifdef _DEBUG
+									#pragma comment( lib, "opus_vs2013_x86_d.lib" )
+									#pragma comment( lib, "opusfile_vs2013_x86_d.lib" )
+									#pragma comment( lib, "silk_common_vs2013_x86_d.lib" )
+									#pragma comment( lib, "celt_vs2013_x86_d.lib" )
+								#else
+									#pragma comment( lib, "opus_vs2013_x86.lib" )
+									#pragma comment( lib, "opusfile_vs2013_x86.lib" )
+									#pragma comment( lib, "silk_common_vs2013_x86.lib" )
+									#pragma comment( lib, "celt_vs2013_x86.lib" )
+								#endif
+							#endif
+						#elif _MSC_VER >= 1700
+							#ifdef _WIN64
+								#ifdef _DEBUG
+									#pragma comment( lib, "opus_vs2012_x64_d.lib" )
+									#pragma comment( lib, "opusfile_vs2012_x64_d.lib" )
+									#pragma comment( lib, "silk_common_vs2012_x64_d.lib" )
+									#pragma comment( lib, "celt_vs2012_x64_d.lib" )
+								#else
+									#pragma comment( lib, "opus_vs2012_x64.lib" )
+									#pragma comment( lib, "opusfile_vs2012_x64.lib" )
+									#pragma comment( lib, "silk_common_vs2012_x64.lib" )
+									#pragma comment( lib, "celt_vs2012_x64.lib" )
+								#endif
+							#else
+								#ifdef _DEBUG
+									#pragma comment( lib, "opus_vs2012_x86_d.lib" )
+									#pragma comment( lib, "opusfile_vs2012_x86_d.lib" )
+									#pragma comment( lib, "silk_common_vs2012_x86_d.lib" )
+									#pragma comment( lib, "celt_vs2012_x86_d.lib" )
+								#else
+									#pragma comment( lib, "opus_vs2012_x86.lib" )
+									#pragma comment( lib, "opusfile_vs2012_x86.lib" )
+									#pragma comment( lib, "silk_common_vs2012_x86.lib" )
+									#pragma comment( lib, "celt_vs2012_x86.lib" )
+								#endif
+							#endif
+						#endif // _MSC_VER >= 1700
+					#endif // _MSC_VER < 1700
+				#else // _MSC_VER
+					#pragma comment( lib, "opus.lib" )
+					#pragma comment( lib, "opusfile.lib" )
+					#pragma comment( lib, "silk_common.lib" )
+					#pragma comment( lib, "celt.lib" )
 				#endif // _MSC_VER
 			#endif
 		#endif  // DX_GCC_COMPILE

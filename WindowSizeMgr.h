@@ -1,7 +1,7 @@
 #pragma once
 
 // define
-#define WINDOW_SIZE_NAME "メモ帳ウィンドウサイズ.ini"
+#define WINDOW_SIZE_NAME "Performance_Mgr_Size.ini"
 
 // ウィンドウの高さ・幅をファイル入力
 void LoadWindowSize();
