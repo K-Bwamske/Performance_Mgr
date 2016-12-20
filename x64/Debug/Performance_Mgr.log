@@ -1,11 +1,4 @@
-﻿  WindowSizeMgr.cpp
-e:\programing\win32\performance_mgr\windowsizemgr.cpp(14): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
-e:\programing\win32\performance_mgr\windowsizemgr.cpp(16): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
-e:\programing\win32\performance_mgr\windowsizemgr.cpp(29): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
-e:\programing\win32\performance_mgr\windowsizemgr.cpp(38): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(205): note: 'fopen' の宣言を確認してください
+﻿  EndCheck.cpp
+  LINK : 前回のインクリメンタル リンクで E:\Programing\Win32\Performance_Mgr\x64\Debug\Performance_Mgr.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
   Performance_Mgr.vcxproj -> E:\Programing\Win32\Performance_Mgr\x64\Debug\Performance_Mgr.exe
   Performance_Mgr.vcxproj -> E:\Programing\Win32\Performance_Mgr\x64\Debug\Performance_Mgr.pdb (Full PDB)
