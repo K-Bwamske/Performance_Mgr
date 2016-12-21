@@ -16,6 +16,7 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	SetOutApplicationLogValidFlag(FALSE);
 	SetMainWindowText("Performance_Mgr v1.0");
+	SetBackgroundColor(220, 220, 220);
 	ChangeWindowMode(TRUE);
 	SetWindowStyleMode(7);						// ウィンドウのモードを設定
 	if (DxLib_Init() == -1) { return -1; }
