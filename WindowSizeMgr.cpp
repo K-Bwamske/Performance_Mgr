@@ -9,24 +9,34 @@ int WindowSize_W;
 int StartWindowPos_X;
 int StartWindowPos_Y;
 
+// ファイルが開けなかったときにそのことを伝える
+void Message_FileOpenMiss() {
+	MessageBox(
+		NULL,
+		TEXT("ファイルが開けませんでした(予期せぬエラー)"),
+		TEXT("ファイルオープン"),
+		MB_YESNO | MB_ICONWARNING);
+
+	DxLib_End();
+	exit(0);
+}
+
 // ウィンドウの高さ・幅をファイル入力
 void LoadWindowSize() {
 	if ((WindowSize_File = fopen(WINDOW_SIZE_NAME, "r")) == NULL) {
 		// もしもファイルが開けなかったら
 		if ((WindowSize_File = fopen(WINDOW_SIZE_NAME, "w")) == NULL) {
-			// ファイルが開けなかった旨を伝える
-			MessageBox(
-				NULL,
-				TEXT("ファイルが開けませんでした"),
-				TEXT("ファイルオープン"),
-				MB_YESNO | MB_ICONWARNING);
-
-			DxLib_End();
-			exit(0);
+			// ファイルが開けなかった旨を伝える & 終了
+			Message_FileOpenMiss();
 		}
+
 		fprintf(WindowSize_File, "640 480\n100 100");
 		fclose(WindowSize_File);
-		WindowSize_File = fopen(WINDOW_SIZE_NAME, "r");
+		// もしもファイルが開けなかったら
+		if ((WindowSize_File = fopen(WINDOW_SIZE_NAME, "r")) == NULL) {
+			// ファイルが開けなかった旨を伝える & 終了
+			Message_FileOpenMiss();
+		}
 	}
 	fscanf_s(WindowSize_File, "%d%d%d%d", &WindowSize_H, &WindowSize_W, &StartWindowPos_X, &StartWindowPos_Y);
 	fclose(WindowSize_File);

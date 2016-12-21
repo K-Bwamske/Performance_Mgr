@@ -3,6 +3,9 @@
 // define
 #define WINDOW_SIZE_NAME "Performance_Mgr_Size.ini"
 
+// ファイルが開けなかったときにそのことを伝える
+void Message_FileOpenMiss();
+
 // ウィンドウの高さ・幅をファイル入力
 void LoadWindowSize();
 
