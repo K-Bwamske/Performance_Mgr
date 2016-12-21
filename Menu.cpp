@@ -14,8 +14,6 @@ void Menu_Init() {
 	// ウィンドウの名前関係
 	{
 		sprintf(OpenedFilePath[0], "%s", GetCommandLine());	// 起動された時のパスを得る
-
-															// 最後の「"」を取り除く
 		for (int a = FILEPATH_MAX - 1; a > 0; a--) {
 			if (OpenedFilePath[0][a] == '\"') {
 				OpenedFilePath[0][a] = '\0';
