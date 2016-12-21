@@ -2,6 +2,10 @@
 #include "DxLib.h"
 #include "WindowSizeMgr.h"
 
+// define
+#define WINDOW_RATIO_H	2
+#define WINDOW_RATIO_W	3
+
 // グローバル変数
 FILE *WindowSize_File;
 int WindowSize_H;
@@ -56,3 +60,8 @@ int GetStartWindowPos_X() { return StartWindowPos_X; }
 
 // ウィンドウの初期位置のY座標を返す
 int GetStartWindowPos_Y() { return StartWindowPos_Y; }
+
+// ウィンドウの比を保つ
+int KeepWindowRatio() {
+
+}
