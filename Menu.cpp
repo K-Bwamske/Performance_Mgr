@@ -32,8 +32,6 @@ void Menu_Init() {
 		}
 	}
 
-	SetMainWindowText(OpenedFilePath[1]);	// ウィンドウの名前を変える
-
 	// 速くする
 	{
 		SetUseVramFlag(TRUE);		// VRAMを使用する
@@ -54,8 +52,7 @@ void Menu_Init() {
 
 	SetWindowSizeChangeEnableFlag(TRUE, FALSE);			// ウィンドウのサイズを変えられるようにする
 	SetWindowSize(NowWindowSize_H, NowWindowSize_W);	// ウィンドウのサイズを設定する
-								 
-	SetWindowPosition(GetStartWindowPos_X(), GetStartWindowPos_Y());// ウインドウモードのウインドウの位置を設定する( 枠も含めた左上座標 )
+	SetWindowPosition(GetStartWindowPos_X(), GetStartWindowPos_Y());	// ウインドウモードのウインドウの位置を設定する（枠も含めた左上座標）
 }
 
 // 更新

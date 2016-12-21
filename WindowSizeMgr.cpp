@@ -51,7 +51,6 @@ int GetWindowSize_H() { return WindowSize_H; }
 // ウィンドウの幅を返す
 int GetWindowSize_W() { return WindowSize_W; }
 
-
 // ウィンドウの初期位置のX座標を返す
 int GetStartWindowPos_X() { return StartWindowPos_X; }
 
