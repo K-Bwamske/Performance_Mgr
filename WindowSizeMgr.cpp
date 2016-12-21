@@ -3,8 +3,8 @@
 #include "WindowSizeMgr.h"
 
 // define
-#define WINDOW_RATIO_H	2
-#define WINDOW_RATIO_W	3
+#define WINDOW_RATIO_H	3
+#define WINDOW_RATIO_W	4
 
 // ƒOƒ[ƒoƒ‹•Ï”
 FILE *WindowSize_File;
