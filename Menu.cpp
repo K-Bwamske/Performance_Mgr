@@ -54,6 +54,8 @@ void Menu_Init() {
 
 	SetWindowSizeChangeEnableFlag(TRUE, FALSE);			// ウィンドウのサイズを変えられるようにする
 	SetWindowSize(NowWindowSize_H, NowWindowSize_W);	// ウィンドウのサイズを設定する
+								 
+	SetWindowPosition(GetStartWindowPos_X(), GetStartWindowPos_Y());// ウインドウモードのウインドウの位置を設定する( 枠も含めた左上座標 )
 }
 
 // 更新
