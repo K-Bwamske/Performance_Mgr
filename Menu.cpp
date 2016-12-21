@@ -65,5 +65,5 @@ void Menu_Update() {
 
 // •`‰æ
 void Menu_Draw() {
-	DrawString(50, 50, "Hello GitHub!!", GetColor(0, 222, 0));
+
 }
