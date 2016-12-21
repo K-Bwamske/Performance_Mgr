@@ -34,7 +34,7 @@ void Show_Draw() {
 	GetWindowSize(&Window_W, &Window_H);
 
 	// 移動していることの確認用(適当に数字を書いてます)
-	DrawFormatString((scrool_all - NowDrawPos_W) % Window_W, 100, GetColor(0, 0, 0), "%d", scrool_all / Window_W + 1 - std::abs(NowDrawPos_W) / Window_W);
+	DrawFormatString((scrool_all - NowDrawPos_W) % Window_W, 100, GetColor(0, 0, 0), "%d", scrool_all / Window_W - (scrool_all - NowDrawPos_W) / Window_W);
 	// スクロールバーの全体を描画
 	DrawBox(0, Window_H - 50, Window_W, Window_H, GetColor(180, 180, 180), TRUE);
 
