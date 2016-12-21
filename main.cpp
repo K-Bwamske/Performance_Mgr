@@ -20,6 +20,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	ChangeWindowMode(TRUE);
 	SetWindowStyleMode(7);						// ウィンドウのモードを設定
 	if (DxLib_Init() == -1) { return -1; }
+	DrawString(100, 100, "Loading Now…", GetColor(0, 0, 0));
 	SetDrawScreen(DX_SCREEN_BACK);
 	SetWindowUserCloseEnableFlag(FALSE);
 	SetAlwaysRunFlag(TRUE);

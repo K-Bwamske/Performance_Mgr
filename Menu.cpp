@@ -60,7 +60,8 @@ void Menu_Init() {
 
 // 更新
 void Menu_Update() {
-
+	// 後で変えてね（いったんShow.cppの動作を見たい）
+	SceneMgr_ChangeScene(Scene_Show);
 }
 
 // 描画
