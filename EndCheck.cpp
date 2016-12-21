@@ -1,10 +1,12 @@
 // include
 #include "DxLib.h"
 #include "EndCheck.h"
+#include "stdio.h"
 
-// I—¹Šm”Fˆ—iu‚Í‚¢v‚ª‰Ÿ‚³‚ê‚½‚çI—¹j
-int EndCheck(){
-	switch (MessageBox(GetMainWindowHandle(), _T("•Û‘¶‚µ‚Ü‚·‚©H"), _T("Šm”F"), MB_YESNOCANCEL))
+// çµ‚äº†ç¢ºèªå‡¦ç†ï¼ˆã€Œã¯ã„ã€ãŒæŠ¼ã•ã‚ŒãŸã‚‰çµ‚äº†ï¼‰
+
+int EndCheck() {
+	switch (MessageBox(GetMainWindowHandle(), _T("ä¿å­˜ã—ã¾ã™ã‹ï¼Ÿ"), _T("ç¢ºèª"), MB_YESNOCANCEL))
 	{
 	case IDYES:
 		return TRUE;
