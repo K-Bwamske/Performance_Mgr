@@ -23,3 +23,6 @@ int GetStartWindowPos_X();
 
 // ウィンドウの初期位置のY座標を返す
 int GetStartWindowPos_Y();
+
+// ウィンドウの比を保つ
+void KeepWindowRatio();

@@ -2,6 +2,10 @@
 #include "DxLib.h"
 #include "WindowSizeMgr.h"
 
+// define
+#define WINDOW_RATIO_H	3
+#define WINDOW_RATIO_W	4
+
 // グローバル変数
 FILE *WindowSize_File;
 int WindowSize_H;
@@ -66,3 +70,15 @@ int GetStartWindowPos_X() { return StartWindowPos_X; }
 
 // ウィンドウの初期位置のY座標を返す
 int GetStartWindowPos_Y() { return StartWindowPos_Y; }
+
+// ウィンドウの比を保つ
+void KeepWindowRatio() {
+	int Height, Weight;
+	GetWindowSize(&Weight, &Height);
+	if (Height / WINDOW_RATIO_H*WINDOW_RATIO_W != Weight
+		|| Weight / WINDOW_RATIO_W*WINDOW_RATIO_H != Height) {
+		if (Height <= Weight) { Weight = Height / WINDOW_RATIO_H*WINDOW_RATIO_W; }
+		if (Weight <= Height) { Height = Weight / WINDOW_RATIO_W*WINDOW_RATIO_H; }
+		SetWindowSize(Weight, Height);
+	}
+}
