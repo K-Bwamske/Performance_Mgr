@@ -10,27 +10,32 @@ char OpenedFilePath[2][FILEPATH_MAX];	// 開かれたところのパス(0=コピー, 1=実際の
 
 // 初期化
 void Menu_Init() {
-	sprintf(OpenedFilePath[0], "%s", GetCommandLine());	// 起動された時のパスを得る
 
-	// 最後の「"」を取り除く
-	for (int a = FILEPATH_MAX - 1; a > 0; a--) {
-		if (OpenedFilePath[0][a] == '\"') {
-			OpenedFilePath[0][a] = '\0';
-			break;
-		}
-	}
-	for (int a = FILEPATH_MAX - 1; a > 0; a--) {
-		if (OpenedFilePath[0][a] == '\\') {
-			for (int b = 0; b < FILEPATH_MAX - a - 1; b++) {
-				if (OpenedFilePath[0][a + b + 1] == '\0') {
-					OpenedFilePath[1][b] = OpenedFilePath[0][a + b + 1];
-					break;
-				}
-				OpenedFilePath[1][b] = OpenedFilePath[0][a + b + 1];
+	// ウィンドウの名前関係
+	{
+		sprintf(OpenedFilePath[0], "%s", GetCommandLine());	// 起動された時のパスを得る
+
+															// 最後の「"」を取り除く
+		for (int a = FILEPATH_MAX - 1; a > 0; a--) {
+			if (OpenedFilePath[0][a] == '\"') {
+				OpenedFilePath[0][a] = '\0';
+				break;
 			}
-			break;
+		}
+		for (int a = FILEPATH_MAX - 1; a > 0; a--) {
+			if (OpenedFilePath[0][a] == '\\') {
+				for (int b = 0; b < FILEPATH_MAX - a - 1; b++) {
+					if (OpenedFilePath[0][a + b + 1] == '\0') {
+						OpenedFilePath[1][b] = OpenedFilePath[0][a + b + 1];
+						break;
+					}
+					OpenedFilePath[1][b] = OpenedFilePath[0][a + b + 1];
+				}
+				break;
+			}
 		}
 	}
+
 
 	// 速くする
 	{
