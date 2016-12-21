@@ -28,6 +28,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	while (ProcessMessage() == 0) {
 		ClearDrawScreen();
+		KeepWindowRatio();
 		SceneMgr_Update();
 		SceneMgr_Draw();
 		if (GetWindowUserCloseFlag(TRUE) == TRUE) {

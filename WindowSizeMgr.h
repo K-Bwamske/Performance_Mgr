@@ -22,4 +22,4 @@ int GetStartWindowPos_X();
 int GetStartWindowPos_Y();
 
 // ウィンドウの比を保つ
-int KeepWindowRatio();
+void KeepWindowRatio();
