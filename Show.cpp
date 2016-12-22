@@ -4,39 +4,36 @@
 #include "Show.h"
 #include <algorithm>
 
+// スクロールバー関係の定数
+const int SCROLL_SPEED = 20;	// スクロールの速さ
+const int SCROLL_AREA = 10000;	// スクロールする領域
+
 int Window_W, Window_H;		// 一応作った（名前は後で変えてね）(WindowSizeMgrに新しい関数を作るのを推奨)
 
-int bar_size;
-int bar_pos;
-
-// 現在の表示している位置（スクロールバー用）
-int NowDrawPos_W;
-
-// スクロールのスピード（スクロールバー用）
-int speed;
-
-// スクロールする領域（スクロールバー用）
-int scroll_all;		// (きっとスペルミスなし)
+// スクロールバー関係の変数
+int bar_Size;				// ?
+int bar_Pos;				// ?
+int bar_NowDrawPos_X;		// 現在の表示している位置
 
 // 初期化
 void Show_Init() {
-	NowDrawPos_W = 0;
-	speed = 20;
-	scroll_all = 10000;
+	bar_NowDrawPos_X = 0;
+	SCROLL_SPEED = 20;
+	SCROLL_AREA = 10000;
 }
 
 // 更新
 void Show_Update() {
-	if (CheckHitKey(KEY_INPUT_RIGHT) != 0) NowDrawPos_W += speed;
-	if (CheckHitKey(KEY_INPUT_LEFT) != 0) NowDrawPos_W -= speed;
-	if (NowDrawPos_W < 0) NowDrawPos_W = 0;
-	if (scroll_all < NowDrawPos_W) NowDrawPos_W = scroll_all;
+	if (CheckHitKey(KEY_INPUT_RIGHT) != 0) bar_NowDrawPos_X += SCROLL_SPEED;
+	if (CheckHitKey(KEY_INPUT_LEFT) != 0) bar_NowDrawPos_X -= SCROLL_SPEED;
+	if (bar_NowDrawPos_X < 0) bar_NowDrawPos_X = 0;
+	if (SCROLL_AREA < bar_NowDrawPos_X) bar_NowDrawPos_X = SCROLL_AREA;
 
 	GetWindowSize(&Window_W, &Window_H);
 
 	// スクロールバーの情報更新
-	bar_size = (Window_W * Window_W) / scroll_all;
-	bar_pos = (NowDrawPos_W * (Window_W - bar_size)) / scroll_all;
+	bar_Size = (Window_W * Window_W) / SCROLL_AREA;
+	bar_Pos = (bar_NowDrawPos_X * (Window_W - bar_Size)) / SCROLL_AREA;
 
 
 }
@@ -45,10 +42,10 @@ void Show_Update() {
 void Show_Draw() {
 
 	// 移動していることの確認用(ページ数)
-	DrawFormatString((scroll_all - NowDrawPos_W) % Window_W, 100, GetColor(0, 0, 0), "%d", scroll_all / Window_W - (scroll_all - NowDrawPos_W) / Window_W);
+	DrawFormatString((SCROLL_AREA - bar_NowDrawPos_X) % Window_W, 100, GetColor(0, 0, 0), "%d", SCROLL_AREA / Window_W - (SCROLL_AREA - bar_NowDrawPos_X) / Window_W);
 	
 	// 書き方(可変)(例)
-	DrawCircleAA(200 - NowDrawPos_W, 300, 15, 100,  GetColor(0, 0, 0), TRUE);
+	DrawCircleAA(200 - bar_NowDrawPos_X, 300, 15, 100,  GetColor(0, 0, 0), TRUE);
 
 	// 書き方(固定)(例)
 	DrawBox(100, 0, Window_W - 100, 50, GetColor(50, 50, 50), TRUE);
@@ -59,5 +56,5 @@ void Show_Draw() {
 
 
 	// スクロールバー（黒）描画
-	DrawBox(bar_pos, Window_H - 50, bar_pos + bar_size, Window_H, GetColor(50, 50, 50), TRUE);
+	DrawBox(bar_Pos, Window_H - 50, bar_Pos + bar_Size, Window_H, GetColor(50, 50, 50), TRUE);
 }
