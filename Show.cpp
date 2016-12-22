@@ -24,18 +24,8 @@ void Show_Init() {
 
 // 更新
 void Show_Update() {
-	if (CheckHitKey(KEY_INPUT_RIGHT) != 0) bar_NowDrawPos_X += SCROLL_SPEED;
-	if (CheckHitKey(KEY_INPUT_LEFT) != 0) bar_NowDrawPos_X -= SCROLL_SPEED;
-	if (bar_NowDrawPos_X < 0) bar_NowDrawPos_X = 0;
-	if (SCROLL_AREA < bar_NowDrawPos_X) bar_NowDrawPos_X = SCROLL_AREA;
-
 	GetWindowSize(&Window_W, &Window_H);
-
-	// スクロールバーの情報更新
-	bar_Size = (Window_W * Window_W) / SCROLL_AREA;
-	bar_Pos = (bar_NowDrawPos_X * (Window_W - bar_Size)) / SCROLL_AREA;
-
-
+	ScrollBar_Update();
 }
 
 // 描画
@@ -57,4 +47,19 @@ void Show_Draw() {
 
 	// スクロールバー（黒）描画
 	DrawBox(bar_Pos, Window_H - 50, bar_Pos + bar_Size, Window_H, GetColor(50, 50, 50), TRUE);
+}
+
+// スクロールバー更新
+void ScrollBar_Update(){
+	if (CheckHitKey(KEY_INPUT_RIGHT) != 0) bar_NowDrawPos_X += SCROLL_SPEED;
+	if (CheckHitKey(KEY_INPUT_LEFT) != 0) bar_NowDrawPos_X -= SCROLL_SPEED;
+	if (bar_NowDrawPos_X < 0) bar_NowDrawPos_X = 0;
+	if (SCROLL_AREA < bar_NowDrawPos_X) bar_NowDrawPos_X = SCROLL_AREA;
+	bar_Size = (Window_W * Window_W) / SCROLL_AREA;
+	bar_Pos = (bar_NowDrawPos_X * (Window_W - bar_Size)) / SCROLL_AREA;
+}
+
+// スクロールバー描画
+void ScrollBar_Draw(){
+
 }
