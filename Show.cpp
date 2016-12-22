@@ -30,23 +30,8 @@ void Show_Update() {
 
 // 描画
 void Show_Draw() {
-
-	// 移動していることの確認用(ページ数)
-	DrawFormatString((SCROLL_AREA - bar_NowDrawPos_X) % Window_W, 100, GetColor(0, 0, 0), "%d", SCROLL_AREA / Window_W - (SCROLL_AREA - bar_NowDrawPos_X) / Window_W);
-	
-	// 書き方(可変)(例)
-	DrawCircleAA(200 - bar_NowDrawPos_X, 300, 15, 100,  GetColor(0, 0, 0), TRUE);
-
-	// 書き方(固定)(例)
-	DrawBox(100, 0, Window_W - 100, 50, GetColor(50, 50, 50), TRUE);
-	
-	// スクロールバーの全体を描画
-	DrawBox(0, Window_H - 50, Window_W, Window_H, GetColor(180, 180, 180), TRUE);
-
-
-
-	// スクロールバー（黒）描画
-	DrawBox(bar_Pos, Window_H - 50, bar_Pos + bar_Size, Window_H, GetColor(50, 50, 50), TRUE);
+	DrawFormatString((SCROLL_AREA - bar_NowDrawPos_X) % Window_W, 100, GetColor(0, 0, 0), "%d", SCROLL_AREA / Window_W - (SCROLL_AREA - bar_NowDrawPos_X) / Window_W);	// 移動していることの確認用（ページ数）
+	ScrollBar_Draw();
 }
 
 // スクロールバー更新
@@ -61,5 +46,8 @@ void ScrollBar_Update(){
 
 // スクロールバー描画
 void ScrollBar_Draw(){
-
+	DrawCircleAA(200 - bar_NowDrawPos_X, 300, 15, 100,  GetColor(0, 0, 0), TRUE);				// ?
+	DrawBox(100, 0, Window_W - 100, 50, GetColor(50, 50, 50), TRUE);							// ?
+	DrawBox(0, Window_H - 50, Window_W, Window_H, GetColor(180, 180, 180), TRUE);				// スクロールバー全体描画
+	DrawBox(bar_Pos, Window_H - 50, bar_Pos + bar_Size, Window_H, GetColor(50, 50, 50), TRUE);	// スクロールバー（黒）描画
 }
