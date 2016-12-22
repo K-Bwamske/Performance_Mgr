@@ -8,18 +8,16 @@
 const int SCROLL_SPEED = 20;	// スクロールの速さ
 const int SCROLL_AREA = 10000;	// スクロールする領域
 
-int Window_W, Window_H;		// 一応作った（名前は後で変えてね）(WindowSizeMgrに新しい関数を作るのを推奨)
-
 // スクロールバー関係の変数
 int bar_Size;				// ?
 int bar_Pos;				// ?
 int bar_NowDrawPos_X;		// 現在の表示している位置
 
+int Window_W, Window_H;		// 一応作った（名前は後で変えてね）(WindowSizeMgrに新しい関数を作るのを推奨)
+
 // 初期化
 void Show_Init() {
 	bar_NowDrawPos_X = 0;
-	SCROLL_SPEED = 20;
-	SCROLL_AREA = 10000;
 }
 
 // 更新
