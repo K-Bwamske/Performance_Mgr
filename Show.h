@@ -1,10 +1,10 @@
 #pragma once
 
-// ‰Šú‰»
+// åˆæœŸåŒ–
 void Show_Init();
 
-// XV
+// æ›´æ–°
 void Show_Update();
 
-// •`‰æ
+// æç”»
 void Show_Draw();
