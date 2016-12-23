@@ -4,47 +4,48 @@
 #include "Show.h"
 #include <algorithm>
 
-// Œ»Ý‚Ì•\Ž¦‚µ‚Ä‚¢‚éˆÊ’uiƒXƒNƒ[ƒ‹ƒo[—pj
-int NowDrawPos_W;
+// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼é–¢ä¿‚ã®å®šæ•°
+const int SCROLL_SPEED = 20;	// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã®é€Ÿã•
+const int SCROLL_AREA = 10000;	// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹é ˜åŸŸ
 
-// ƒXƒNƒ[ƒ‹‚ÌƒXƒs[ƒhiƒXƒNƒ[ƒ‹ƒo[—pj
-int speed;
+// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼é–¢ä¿‚ã®å¤‰æ•°
+int bar_Size;				// ?
+int bar_Pos;				// ?
+int bar_NowDrawPos_X;		// ç¾åœ¨ã®è¡¨ç¤ºã—ã¦ã„ã‚‹ä½ç½®
 
-// ƒXƒNƒ[ƒ‹‚·‚é—ÌˆæiƒXƒNƒ[ƒ‹ƒo[—pj
-int scrool_all;		// (‚«‚Á‚ÆƒXƒyƒ‹ƒ~ƒX)
+int Window_W, Window_H;		// ä¸€å¿œä½œã£ãŸï¼ˆåå‰ã¯å¾Œã§å¤‰ãˆã¦ã­ï¼‰(WindowSizeMgrã«æ–°ã—ã„é–¢æ•°ã‚’ä½œã‚‹ã®ã‚’æŽ¨å¥¨)
 
-// ‰Šú‰»
+// åˆæœŸåŒ–
 void Show_Init() {
-	NowDrawPos_W = 0;
-	speed = 20;
-	scrool_all = 10000;
+	bar_NowDrawPos_X = 0;
 }
 
-// XV
+// æ›´æ–°
 void Show_Update() {
-	if (CheckHitKey(KEY_INPUT_RIGHT) != 0) NowDrawPos_W += speed;
-	if (CheckHitKey(KEY_INPUT_LEFT) != 0) NowDrawPos_W -= speed;
-	if (NowDrawPos_W < 0) NowDrawPos_W = 0;
-	if (scrool_all < NowDrawPos_W) NowDrawPos_W = scrool_all;
+	GetWindowSize(&Window_W, &Window_H);
+	ScrollBar_Update();
 }
 
-// •`‰æ
+// æç”»
 void Show_Draw() {
-	static int Window_W, Window_H;		// ˆê‰žì‚Á‚½i–¼‘O‚ÍŒã‚Å•Ï‚¦‚Ä‚Ëj(WindowSizeMgr‚ÉV‚µ‚¢ŠÖ”‚ðì‚é‚Ì‚ð„§)
-	GetWindowSize(&Window_W, &Window_H);
+	DrawFormatString((SCROLL_AREA - bar_NowDrawPos_X) % Window_W, 100, GetColor(0, 0, 0), "%d", SCROLL_AREA / Window_W - (SCROLL_AREA - bar_NowDrawPos_X) / Window_W);	// ç§»å‹•ã—ã¦ã„ã‚‹ã“ã¨ã®ç¢ºèªç”¨ï¼ˆãƒšãƒ¼ã‚¸æ•°ï¼‰
+	ScrollBar_Draw();
+}
 
-	// ˆÚ“®‚µ‚Ä‚¢‚é‚±‚Æ‚ÌŠm”F—p(“K“–‚É”Žš‚ð‘‚¢‚Ä‚Ü‚·)
-	DrawFormatString((scrool_all - NowDrawPos_W) % Window_W, 100, GetColor(0, 0, 0), "%d", scrool_all / Window_W - (scrool_all - NowDrawPos_W) / Window_W);
-	// ƒXƒNƒ[ƒ‹ƒo[‚Ì‘S‘Ì‚ð•`‰æ
-	DrawBox(0, Window_H - 50, Window_W, Window_H, GetColor(180, 180, 180), TRUE);
+// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼æ›´æ–°
+void ScrollBar_Update(){
+	if (CheckHitKey(KEY_INPUT_RIGHT) != 0) bar_NowDrawPos_X += SCROLL_SPEED;
+	if (CheckHitKey(KEY_INPUT_LEFT) != 0) bar_NowDrawPos_X -= SCROLL_SPEED;
+	if (bar_NowDrawPos_X < 0) bar_NowDrawPos_X = 0;
+	if (SCROLL_AREA < bar_NowDrawPos_X) bar_NowDrawPos_X = SCROLL_AREA;
+	bar_Size = (Window_W * Window_W) / SCROLL_AREA;
+	bar_Pos = (bar_NowDrawPos_X * (Window_W - bar_Size)) / SCROLL_AREA;
+}
 
-	int bar_size;
-	int bar_pos;
-
-	// ƒXƒNƒ[ƒ‹ƒo[‚Ìî•ñXV
-	bar_size = (Window_W * Window_W) / scrool_all;
-	bar_pos = (NowDrawPos_W * (Window_W - bar_size)) / scrool_all;
-
-	// ƒXƒNƒ[ƒ‹ƒo[i•j•`‰æ
-	DrawBox(bar_pos, Window_H - 50, bar_pos + bar_size, Window_H, GetColor(50, 50, 50), TRUE);
+// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼æç”»
+void ScrollBar_Draw(){
+	DrawCircleAA(200 - bar_NowDrawPos_X, 300, 15, 100,  GetColor(0, 0, 0), TRUE);				// ?
+	DrawBox(100, 0, Window_W - 100, 50, GetColor(50, 50, 50), TRUE);							// ?
+	DrawBox(0, Window_H - 50, Window_W, Window_H, GetColor(180, 180, 180), TRUE);				// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼å…¨ä½“æç”»
+	DrawBox(bar_Pos, Window_H - 50, bar_Pos + bar_Size, Window_H, GetColor(50, 50, 50), TRUE);	// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ï¼ˆé»’ï¼‰æç”»
 }
