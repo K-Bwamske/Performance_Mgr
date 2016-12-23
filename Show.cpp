@@ -9,9 +9,9 @@ const int SCROLL_SPEED = 20;	// スクロールの速さ
 const int SCROLL_AREA = 10000;	// スクロールする領域
 
 // スクロールバー関係の変数
-int bar_Size;				// ?
-int bar_Pos;				// ?
-int bar_NowDrawPos_X;		// 現在の表示している位置
+int bar_Size;				// ウィンドウ上に表示しているバーの大きさ
+int bar_Pos;				// ウィンドウ上に表示しているバーの位置
+int bar_NowDrawPos_X;		// 表示したい全体の表示している位置
 
 int Window_W, Window_H;		// 一応作った（名前は後で変えてね）(WindowSizeMgrに新しい関数を作るのを推奨)
 
@@ -44,8 +44,8 @@ void ScrollBar_Update(){
 
 // スクロールバー描画
 void ScrollBar_Draw(){
-	DrawCircleAA(200 - bar_NowDrawPos_X, 300, 15, 100,  GetColor(0, 0, 0), TRUE);				// ?
-	DrawBox(100, 0, Window_W - 100, 50, GetColor(50, 50, 50), TRUE);							// ?
+	DrawCircleAA(200 - bar_NowDrawPos_X, 300, 15, 100,  GetColor(0, 0, 0), TRUE);				// 移動する表示物の書き方(例)
+	DrawBox(100, 0, Window_W - 100, 50, GetColor(50, 50, 50), TRUE);							// 移動しない表示物の書き方(例)
 	DrawBox(0, Window_H - 50, Window_W, Window_H, GetColor(180, 180, 180), TRUE);				// スクロールバー全体描画
 	DrawBox(bar_Pos, Window_H - 50, bar_Pos + bar_Size, Window_H, GetColor(50, 50, 50), TRUE);	// スクロールバー（黒）描画
 }
