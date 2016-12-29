@@ -18,14 +18,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	SetMainWindowText("Performance_Mgr v1.0");
 	SetBackgroundColor(220, 220, 220);
 	ChangeWindowMode(TRUE);
-	SetWindowStyleMode(7);						// ƒEƒBƒ“ƒhƒE‚Ìƒ‚[ƒh‚ğİ’è
+	SetWindowStyleMode(7);						// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ìƒï¿½ï¿½[ï¿½hï¿½ï¿½ï¿½İ’ï¿½
 	if (DxLib_Init() == -1) { return -1; }
-	DrawString(100, 100, "Loading Nowc", GetColor(0, 0, 0));
+	Menu_Init();								// ï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½Åï¿½ï¿½ÌƒVï¿½[ï¿½ï¿½ï¿½È‚Ì‚ÅAï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½vï¿½É“ï¿½ï¿½ï¿½ï¿½Oï¿½Éï¿½ï¿½ï¿½ï¿½ï¿½
+	DrawString(100, 100, "Loading Nowï¿½c", GetColor(0, 0, 0));
 	SetDrawScreen(DX_SCREEN_BACK);
 	SetWindowUserCloseEnableFlag(FALSE);
 	SetAlwaysRunFlag(TRUE);
-	SetDoubleStartValidFlag(TRUE);				// ƒEƒBƒ“ƒhƒE‚Ì‘½d‹N“®‚ğ‹–‰Â‚·‚é
-	Menu_Init();								// ‹N“®Å‰‚ÌƒV[ƒ“‚È‚Ì‚ÅAƒƒCƒ“ƒ‹[ƒv‚É“ü‚é‘O‚É‰Šú‰»
+	SetDoubleStartValidFlag(TRUE);				// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ì‘ï¿½ï¿½dï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½
 
 	while (ProcessMessage() == 0) {
 		ClearDrawScreen();
@@ -38,7 +38,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		ScreenFlip();
 	}
 
-	SaveWindowSize();	// ƒEƒBƒ“ƒhƒE‚Ì‚‚³E•‚ğƒtƒ@ƒCƒ‹o—Í
+	SaveWindowSize();	// ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½Ìï¿½ï¿½ï¿½ï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½oï¿½ï¿½
 
 	DxLib_End();
 	return 0;
