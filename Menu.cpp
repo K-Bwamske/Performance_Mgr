@@ -1,70 +1,100 @@
 // include
 #include "DxLib.h"
 #include "SceneMgr.h"
-#include "WindowSizeMgr.h"
-#include "Menu.h"
+#include "Show.h"
 
-// define
-#define FILEPATH_MAX 1500
-char OpenedFilePath[2][FILEPATH_MAX];	// ŠJ‚©‚ê‚½‚Æ‚±‚ë‚ÌƒpƒX(0=ƒRƒs[, 1=ŽÀÛ‚ÌƒEƒBƒ“ƒhƒE‚Ì–¼‘O)
+// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼é–¢ä¿‚ã®å®šæ•°
+const int SCROLL_SPEED = 20;		// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã®é€Ÿã•
+const int SCROLL_AREA = 10000;		// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã™ã‚‹é ˜åŸŸ
+const int SCROLLBAR_H = 50;			// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®é«˜ã•
+const int BAR_MOVE_SPEED = 50;		// ãƒãƒ¼ã§ã¯ãªã„ã¨ã“ã‚ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®ãƒãƒ¼ã®ç§»å‹•é€Ÿåº¦
+const int BAR_VAN_MOVE_H = 150;		// ãƒãƒ¼ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸå¾Œã®ãƒãƒ¼ãŒå‹•ãã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä¸‹ã‹ã‚‰ã®æœ€é•·è·é›¢
 
-// ‰Šú‰»
-void Menu_Init() {
+// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼é–¢ä¿‚ã®å¤‰æ•°
+int bar_Size;						// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä¸Šã«è¡¨ç¤ºã—ã¦ã„ã‚‹ãƒãƒ¼ã®å¤§ãã•
+int bar_Pos;						// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä¸Šã«è¡¨ç¤ºã—ã¦ã„ã‚‹ãƒãƒ¼ã®ä½ç½®
+int bar_NowDrawPos_X;				// è¡¨ç¤ºã—ãŸã„å…¨ä½“ã®è¡¨ç¤ºã—ã¦ã„ã‚‹ä½ç½®
 
-	// ƒEƒBƒ“ƒhƒE‚Ì–¼‘OŠÖŒW
-	{
-		sprintf(OpenedFilePath[0], "%s", GetCommandLine());	// ‹N“®‚³‚ê‚½Žž‚ÌƒpƒX‚ð“¾‚é
-		for (int a = FILEPATH_MAX - 1; a > 0; a--) {
-			if (OpenedFilePath[0][a] == '\"') {
-				OpenedFilePath[0][a] = '\0';
-				break;
-			}
-		}
-		for (int a = FILEPATH_MAX - 1; a > 0; a--) {
-			if (OpenedFilePath[0][a] == '\\') {
-				for (int b = 0; b < FILEPATH_MAX - a - 1; b++) {
-					if (OpenedFilePath[0][a + b + 1] == '\0') {
-						OpenedFilePath[1][b] = OpenedFilePath[0][a + b + 1];
-						break;
+// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®å¤‰æ•°
+int bar_click_pos;					// ãƒãƒ¼ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®ãƒãƒ¼ã®å·¦ç«¯ã‹ã‚‰ã®åº§æ¨™
+int bar_clicked_pos;				// ãƒãƒ¼ã‚’æœ€åˆã«ã‚¯ãƒªãƒƒã‚¯ã—ãŸã¨ãã®åº§æ¨™
+bool bar_click_flag;				// false == æŠ¼ã—ã¦ã„ãªã„	true == æŠ¼ã—ç¶šã‘ã¦ã„ã‚‹
+
+int Window_W, Window_H;				// ä¸€å¿œä½œã£ãŸï¼ˆåå‰ã¯å¾Œã§å¤‰ãˆã¦ã­ï¼‰(WindowSizeMgrã«æ–°ã—ã„é–¢æ•°ã‚’ä½œã‚‹ã®ã‚’æŽ¨å¥¨)
+int Mouse_X, Mouse_Y;				// ãƒžã‚¦ã‚¹ãƒã‚¤ãƒ³ã‚¿ãƒ¼ã®åº§æ¨™
+
+// åˆæœŸåŒ–
+void Show_Init() {
+	GetWindowSize(&Window_W, &Window_H);
+	bar_NowDrawPos_X = 0;
+	bar_click_flag = false;
+}
+
+// æ›´æ–°
+void Show_Update() {
+	GetWindowSize(&Window_W, &Window_H);
+	ScrollBar_Update();
+}
+
+// æç”»
+void Show_Draw() {
+	DrawFormatString((SCROLL_AREA - bar_NowDrawPos_X) % Window_W, 100, GetColor(0, 0, 0), "%d", SCROLL_AREA / Window_W - (SCROLL_AREA - bar_NowDrawPos_X) / Window_W);	// ç§»å‹•ã—ã¦ã„ã‚‹ã“ã¨ã®ç¢ºèªç”¨ï¼ˆãƒšãƒ¼ã‚¸æ•°ï¼‰
+	ScrollBar_Draw();
+}
+
+// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼æ›´æ–°
+void ScrollBar_Update(){
+	// æŠ¼ã•ã‚Œã¦ã„ãªã„çŠ¶æ…‹
+	if (CheckHitKey(KEY_INPUT_RIGHT) != 0) bar_NowDrawPos_X += SCROLL_SPEED;
+	if (CheckHitKey(KEY_INPUT_LEFT) != 0) bar_NowDrawPos_X -= SCROLL_SPEED;
+	if (bar_NowDrawPos_X < 0) bar_NowDrawPos_X = 0;
+	if (SCROLL_AREA < bar_NowDrawPos_X) bar_NowDrawPos_X = SCROLL_AREA;
+	bar_Size = (Window_W * Window_W) / SCROLL_AREA;
+	bar_Pos = (bar_NowDrawPos_X * (Window_W - bar_Size)) / SCROLL_AREA;
+	
+	// æŠ¼ã•ã‚Œã¦ã„ã‚‹çŠ¶æ…‹
+	if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0) {
+		GetMousePoint(&Mouse_X, &Mouse_Y);
+		if (Window_H - BAR_VAN_MOVE_H < Mouse_Y) {
+			if (bar_click_flag == false) {
+				if (Window_H - SCROLLBAR_H < Mouse_Y) {
+					if (bar_Pos < Mouse_X &&
+						Mouse_X < bar_Pos + bar_Size) {
+						bar_click_flag = true;
+						bar_click_pos = Mouse_X - bar_Pos;
+						bar_clicked_pos = bar_Pos;
+						
 					}
-					OpenedFilePath[1][b] = OpenedFilePath[0][a + b + 1];
+					else {
+						if (bar_Pos < Mouse_X - BAR_MOVE_SPEED) { bar_Pos += BAR_MOVE_SPEED; }
+						else if (bar_Pos < Mouse_X) { bar_Pos += bar_Size; }
+						else if (Mouse_X + BAR_MOVE_SPEED < bar_Pos + bar_Size) { bar_Pos -= BAR_MOVE_SPEED; }
+						else if (Mouse_X < bar_Pos + bar_Size) { bar_Pos -= bar_Size; }
+					}
 				}
-				break;
 			}
+			else { bar_Pos = Mouse_X - bar_click_pos; }
+			bar_Pos = (bar_Pos < 0 ? 0 : bar_Pos);
+			if (Window_W - bar_Size < bar_Pos) { bar_Pos = Window_W - bar_Size; }
+			bar_NowDrawPos_X = (bar_Pos * SCROLL_AREA) / (Window_W - bar_Size);
+		}
+		else {
+			bar_Pos = bar_clicked_pos;
+			bar_Pos = (bar_Pos < 0 ? 0 : bar_Pos);
+			if (Window_W - bar_Size < bar_Pos) { bar_Pos = Window_W - bar_Size; }
+			bar_NowDrawPos_X = (bar_Pos * SCROLL_AREA) / (Window_W - bar_Size);
 		}
 	}
+	else { bar_click_flag = false; }
+}
 
-
-	// ‘¬‚­‚·‚é
-	{
-		SetUseVramFlag(TRUE);		// VRAM‚ðŽg—p‚·‚é
-		SetUse3DFlag(FALSE);		// 3D‹@”\‚ðŽg—p‚µ‚È‚¢
-		SetBasicBlendFlag(TRUE);	// ƒuƒŒƒ“ƒh‚ÌƒNƒIƒŠƒeƒB‚ð‰º‚°‚éB
+// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼æç”»
+void ScrollBar_Draw(){
+	DrawCircleAA(200 - bar_NowDrawPos_X, 300, 15, 100,  GetColor(0, 0, 0), TRUE);								// ç§»å‹•ã™ã‚‹è¡¨ç¤ºç‰©ã®æ›¸ãæ–¹ï¼ˆä¾‹ï¼‰
+	DrawBox(100, 0, Window_W - 100, 50, GetColor(50, 50, 50), TRUE);											// ç§»å‹•ã—ãªã„è¡¨ç¤ºç‰©ã®æ›¸ãæ–¹ï¼ˆä¾‹ï¼‰
+	DrawBox(0, Window_H - SCROLLBAR_H, Window_W, Window_H, GetColor(180, 180, 180), TRUE);						// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼å…¨ä½“æç”»
+	DrawBox(bar_Pos, Window_H - SCROLLBAR_H, bar_Pos + bar_Size, Window_H, GetColor(100, 100, 100), TRUE);		// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ï¼ˆæŠ¼ã•ã‚Œã¦ã„ãªã„æ™‚Verï¼‰æç”»
+	if (bar_click_flag == true) {
+		DrawBox(bar_Pos, Window_H - SCROLLBAR_H, bar_Pos + bar_Size, Window_H, GetColor(50, 50, 50), TRUE);		// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ï¼ˆæŠ¼ã•ã‚Œã¦ã„ã‚‹æ™‚Verï¼‰æç”»
 	}
-
-	LoadWindowSize();	// ƒEƒBƒ“ƒhƒE‚Ì‘å‚«‚³‚ð“Ç‚Ýž‚Þ
-
-	// ƒEƒBƒ“ƒhƒE‚Ì‘å‚«‚³‚ð‘ã“ü
-	int NowWindowSize_H = GetWindowSize_H();
-	int NowWindowSize_W = GetWindowSize_W();
-
-	// Å‘å‰»‚ª‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	int Desktop_H, Desktop_W;						// ƒfƒXƒNƒgƒbƒv‚Ì‘å‚«‚³
-	GetDefaultState(&Desktop_H, &Desktop_W, NULL);
-	SetGraphMode(Desktop_H, Desktop_W, 32);
-
-	SetWindowSizeChangeEnableFlag(TRUE, FALSE);			// ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ð•Ï‚¦‚ç‚ê‚é‚æ‚¤‚É‚·‚é
-	SetWindowSize(NowWindowSize_H, NowWindowSize_W);	// ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ðÝ’è‚·‚é
-	SetWindowPosition(GetStartWindowPos_X(), GetStartWindowPos_Y());	// ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚ÌƒEƒCƒ“ƒhƒE‚ÌˆÊ’u‚ðÝ’è‚·‚éi˜g‚àŠÜ‚ß‚½¶ãÀ•Wj
-}
-
-// XV
-void Menu_Update() {
-	// Œã‚Å•Ï‚¦‚Ä‚Ëi‚¢‚Á‚½‚ñShow.cpp‚Ì“®ì‚ðŒ©‚½‚¢j
-	SceneMgr_ChangeScene(Scene_Show);
-}
-
-// •`‰æ
-void Menu_Draw() {
-
 }
