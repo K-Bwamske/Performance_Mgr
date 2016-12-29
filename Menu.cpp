@@ -6,14 +6,14 @@
 
 // define
 #define FILEPATH_MAX 1500
-char OpenedFilePath[2][FILEPATH_MAX];	// ŠJ‚©‚ê‚½‚Æ‚±‚ë‚ÌƒpƒX(0=ƒRƒs[, 1=ÀÛ‚ÌƒEƒBƒ“ƒhƒE‚Ì–¼‘O)
+char OpenedFilePath[2][FILEPATH_MAX];	// èµ·å‹•æ™‚ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 
-// ‰Šú‰»
+// åˆæœŸåŒ–
 void Menu_Init() {
 
-	// ƒEƒBƒ“ƒhƒE‚Ì–¼‘OŠÖŒW
+	// ""ã‚’å–ã‚Šé™¤ã
 	{
-		sprintf(OpenedFilePath[0], "%s", GetCommandLine());	// ‹N“®‚³‚ê‚½‚ÌƒpƒX‚ğ“¾‚é
+		sprintf(OpenedFilePath[0], "%s", GetCommandLine());
 		for (int a = FILEPATH_MAX - 1; a > 0; a--) {
 			if (OpenedFilePath[0][a] == '\"') {
 				OpenedFilePath[0][a] = '\0';
@@ -35,36 +35,36 @@ void Menu_Init() {
 	}
 
 
-	// ‘¬‚­‚·‚é
+	// é«˜é€ŸåŒ–
 	{
-		SetUseVramFlag(TRUE);		// VRAM‚ğg—p‚·‚é
-		SetUse3DFlag(FALSE);		// 3D‹@”\‚ğg—p‚µ‚È‚¢
-		SetBasicBlendFlag(TRUE);	// ƒuƒŒƒ“ƒh‚ÌƒNƒIƒŠƒeƒB‚ğ‰º‚°‚éB
+		SetUseVramFlag(TRUE);		// VRAMã‚’ä½¿ã†
+		SetUse3DFlag(FALSE);		// 3Dã‚’ä½¿ã‚ãªã„
+		SetBasicBlendFlag(TRUE);	// Blendã®è³ªã‚’è½ã¨ã™
 	}
 
-	LoadWindowSize();	// ƒEƒBƒ“ƒhƒE‚Ì‘å‚«‚³‚ğ“Ç‚İ‚Ş
+	LoadWindowSize();	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’èª­ã¿è¾¼ã‚€
 
-	// ƒEƒBƒ“ƒhƒE‚Ì‘å‚«‚³‚ğ‘ã“ü
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®é«˜ã•ã¨å¹…ã‚’å¾—ã‚‹
 	int NowWindowSize_H = GetWindowSize_H();
 	int NowWindowSize_W = GetWindowSize_W();
 
-	// Å‘å‰»‚ª‚Å‚«‚é‚æ‚¤‚É‚·‚é
-	int Desktop_H, Desktop_W;						// ƒfƒXƒNƒgƒbƒv‚Ì‘å‚«‚³
+	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å¤§ãã•ã‚’å¤‰ãˆã‚‹
+	int Desktop_H, Desktop_W;
 	GetDefaultState(&Desktop_H, &Desktop_W, NULL);
 	SetGraphMode(Desktop_H, Desktop_W, 32);
 
-	SetWindowSizeChangeEnableFlag(TRUE, FALSE);			// ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ğ•Ï‚¦‚ç‚ê‚é‚æ‚¤‚É‚·‚é
-	SetWindowSize(NowWindowSize_H, NowWindowSize_W);	// ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ğİ’è‚·‚é
-	SetWindowPosition(GetStartWindowPos_X(), GetStartWindowPos_Y());	// ƒEƒCƒ“ƒhƒEƒ‚[ƒh‚ÌƒEƒCƒ“ƒhƒE‚ÌˆÊ’u‚ğİ’è‚·‚éi˜g‚àŠÜ‚ß‚½¶ãÀ•Wj
+	SetWindowSizeChangeEnableFlag(TRUE, FALSE);							// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å¤§ãã•ã‚’å¤‰ãˆã‚‰ã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹
+	SetWindowSize(NowWindowSize_H, NowWindowSize_W);					// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å¤§ãã•ã‚’è¨­å®šã™ã‚‹
+	SetWindowPosition(GetStartWindowPos_X(), GetStartWindowPos_Y());	// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å·¦ä¸Šã®ä½ç½®ã‚’è¨­å®šã™ã‚‹
 }
 
-// XV
+// æ›´æ–°
 void Menu_Update() {
-	// Œã‚Å•Ï‚¦‚Ä‚Ëi‚¢‚Á‚½‚ñShow.cpp‚Ì“®ì‚ğŒ©‚½‚¢j
+	// ä»®
 	SceneMgr_ChangeScene(Scene_Show);
 }
 
-// •`‰æ
+// æç”»
 void Menu_Draw() {
 
 }
