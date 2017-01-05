@@ -1,4 +1,5 @@
 #include "DxLib.h"
+#include "After_Init.h"
 
 // DxLib_Init()‚ÌŒã‚É‚â‚éˆ—
 void After_Init() {
