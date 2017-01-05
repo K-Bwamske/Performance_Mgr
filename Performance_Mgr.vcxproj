@@ -154,6 +154,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="After_Init.cpp" />
+    <ClCompile Include="Before_Init.cpp" />
     <ClCompile Include="EndCheck.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -163,6 +165,8 @@
     <ClCompile Include="Write.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="After_Init.h" />
+    <ClInclude Include="Before_Init.h" />
     <ClInclude Include="EndCheck.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="SceneMgr.h" />
