@@ -157,6 +157,7 @@
     <ClCompile Include="After_Init.cpp" />
     <ClCompile Include="Before_Init.cpp" />
     <ClCompile Include="EndCheck.cpp" />
+    <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="After_Init.h" />
     <ClInclude Include="Before_Init.h" />
     <ClInclude Include="EndCheck.h" />
+    <ClInclude Include="List.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="Show.h" />
